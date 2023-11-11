@@ -1,5 +1,6 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def landingPage(request):
-    return HttpResponse(f"hello: {request.META['HTTP_USER_AGENT']}")
+    return render(request, 'landing.html')
