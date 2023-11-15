@@ -9,48 +9,7 @@
     <h1>Register</h1>
 
     <form action="" method="post">
-      {% csrf_token %}
-
-      <label for="username">Username:</label>
-      <input
-        id="Username"
-        type="text"
-        name="username"
-        placeholder="Username"
-      /><br /><br />
-
-      <label for="first_name">First Name:</label>
-      <input
-        id="first_name"
-        type="text"
-        name="first_name"
-        placeholder="First Name"
-      /><br /><br />
-
-      <label for="last_name">Last Name:</label>
-      <input
-        id="last_name"
-        type="text"
-        name="last_name"
-        placeholder="Last Name"
-      /><br /><br />
-
-      <label for="email">Email:</label>
-      <input
-        id="email"
-        type="email"
-        name="email"
-        placeholder="Email"
-      /><br /><br />
-
-      <label for="password">Password:</label>
-      <input
-        id="password"
-        type="password"
-        name="password"
-        placeholder="Password"
-      />
-      <br /><br />
+      {% csrf_token %} {{form.as_p}}
       <button type="submit">Submit</button>
     </form>
   </body>
