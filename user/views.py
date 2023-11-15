@@ -1,7 +1,8 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login
 from django.shortcuts import redirect, render
 from django.views import View
-from user.forms import UserCreateForm
+from user.forms import UserCreateForm, UserLoginForm
 
 
 class RegisterView(View):
@@ -20,4 +21,19 @@ class RegisterView(View):
 
 class LoginView(View):
     def get(self, request):
-        return render(request, 'users/login.html')
+        form = UserLoginForm()
+        ctx = {
+            'form': form
+        }
+        return render(request, 'users/login.html', ctx)
+
+    def post(self, request):
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            
+            return redirect('landingPage')
+
+        else:
+            return render(request, 'users/login.html', {"form": form})
