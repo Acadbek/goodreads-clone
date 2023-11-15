@@ -6,10 +6,7 @@ from user.forms import UserCreateForm
 
 class RegisterView(View):
     def get(self, request):
-        create_form = UserCreateForm()
-        ctx = {'form': create_form}
-
-        return render(request, 'users/register.html', ctx)
+        return render(request, 'users/register.html', {'form': UserCreateForm()})
 
     def post(self, request):
         create_form = UserCreateForm(data=request.POST)
@@ -18,10 +15,7 @@ class RegisterView(View):
             create_form.save()
             return redirect('user:login')
         else:
-            ctx = {
-                'form': create_form
-            }
-            return render(request, 'users/register.html', ctx)
+            return render(request, 'users/register.html', {'form': create_form})
 
 
 class LoginView(View):
