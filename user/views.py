@@ -1,8 +1,8 @@
+from django.views import View
+from django.shortcuts import redirect, render
+from user.forms import UserCreateForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
-from django.shortcuts import redirect, render
-from django.views import View
-from user.forms import UserCreateForm, UserLoginForm
 
 
 class RegisterView(View):
@@ -21,7 +21,7 @@ class RegisterView(View):
 
 class LoginView(View):
     def get(self, request):
-        form = UserLoginForm()
+        form = AuthenticationForm()
         return render(request, 'users/login.html', {'form': form})
 
     def post(self, request):

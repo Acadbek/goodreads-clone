@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user
 from django.urls import reverse
 
 
@@ -29,8 +30,8 @@ class RegistrationTestCase(TestCase):
         response = self.client.post(
             reverse('user:register'),
             data={
-                'username': 'Anna',
-                'password': 'liza'
+                'username': 'assad',
+                'password': 'assad'
             }
         )
 
@@ -68,3 +69,23 @@ class RegistrationTestCase(TestCase):
         # 4. check that the form contains the error message
         self.assertFormError(response, 'form', 'username',
                              'A user with that username already exists.')
+
+
+class LoginTestCase(TestCase):
+    def test_successful_login(self):
+        db_user = User.objects.create(
+            username='assad', first_name='Asadbek')
+        db_user.set_password('assad')
+        db_user.save()
+
+        self.client.post(
+            reverse('user:login'),
+            data={
+                'username': 'assad',
+                'password': 'assad'
+            }
+        )
+
+        user = get_user(self.client)
+
+        self.assertTrue(user.is_authenticated)
