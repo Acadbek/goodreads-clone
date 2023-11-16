@@ -4,6 +4,7 @@ from goodreads.views import landingPage
 
 urlpatterns = [
     path('', landingPage, name='landingPage'),
-    path('users/', include('user.urls'), name='users'),
+    path('users/', include('user.urls')),
+    path('books/', include('book.urls')),
     path('admin/', admin.site.urls),
 ]
