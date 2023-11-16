@@ -18,7 +18,3 @@ class UserCreateForm(forms.ModelForm):
 class UserLoginForm(forms.Form):
     username = forms.CharField(max_length=150)
     password = forms.CharField(widget=forms.PasswordInput, max_length=128)
-    
-    def clean(self):
-        username = self.cleaned_data['username']
-        password = self.cleaned_data['password']

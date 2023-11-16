@@ -22,17 +22,14 @@ class RegisterView(View):
 class LoginView(View):
     def get(self, request):
         form = UserLoginForm()
-        ctx = {
-            'form': form
-        }
-        return render(request, 'users/login.html', ctx)
+        return render(request, 'users/login.html', {'form': form})
 
     def post(self, request):
         form = AuthenticationForm(data=request.POST)
+
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            
             return redirect('landingPage')
 
         else:
