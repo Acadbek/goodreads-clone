@@ -3,24 +3,25 @@
 {% block title %} Books List {% endblock %}
 
 {% block content %}
-    <h1>Books</h1>
+<h1 class="title text-center mt-4">Books</h1>
+<div class="container">
 
-    {% if messages %}
-      {% for msg in messages %}
-        <p class="{{msg.tags}}">{{msg}}</p>
-      {% endfor %}
-    {% endif %}
-
+  <div class="w-2/3">
     {% if books %}
-        <ul>
-        {% for book in books %}
-        <li>
-            <a href="{% url 'books:detail' book.id %}">{{ book.title }}</a>
-        </li>
-        {% endfor %}
-        </ul>
+    <ul class="flex flex-wrap gap-5">
+      {% for book in books %}
+      <li class="card p-4 hover:bg-gray-50">
+        <a href="{% url 'books:detail' book.id %}">{{ book.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
     {% else %}
-        No books found.
+    No books found.
     {% endif %}
 
-{% endblock %}
+    {% endblock %}
+  </div>
+  <div>
+
+  </div>
+</div>

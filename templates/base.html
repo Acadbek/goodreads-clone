@@ -1,29 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} Goodreads Clone {% endblock %} </title>
-</head>
-<body>
-    <a href="{% url 'books:list' %}">Books</a> /
-    <a href="{% url 'user:profile' %}">Profile</a>/
-    <a href="{% url 'user:register' %}">Register</a> /
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} Goodreads Clone {% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <nav
+      class="navbar bg-[#F4F2E9] sticky top-0"
+      role="navigation"
+      aria-label="main navigation"
+    >
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <img
+            src="https://s.gr-assets.com/assets/home/header_logo-8d96d7078a3d63f9f31d92282fd67cf4.png"
+            width="112"
+            height="28"
+          />
+        </a>
 
-    {% if request.user.is_authenticated %}
-      <a href="{% url 'user:logout' %}">Logout</a>/
-    {% else %}
-      <a href="{% url 'user:login' %}">Login</a>/
-    {% endif %}
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarBasicExample"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
 
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item font-bold" href="{% url 'books:list' %}"
+            >Books</a
+          >
+        </div>
 
-    {% if messages %}
-      {% for msg in messages %}
-        <p class="{{msg.tags}}">{{msg}}</p>
-      {% endfor %}
-    {% endif %}
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-primary" href="{% url 'user:register' %}"
+                >Register</a
+              >
+              {% if request.user.is_authenticated %}
+              <a class="button is-light" href="{% url 'user:logout' %}"
+                >Logout</a
+              >
+              <a href="{% url 'user:profile' %}">
+                <img src="../media/avatar-svgrepo-com.svg" alt="" />
+              </a>
 
+              {% else %}
+              <a class="button is-light" href="{% url 'user:login' %}">Login</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
 
-    {% block content %} {% endblock %}
-</body>
+    {% if messages %} {% for msg in messages %}
+    <div
+      class="notification is-warning absolute right-2 flex justify-between w-[300px]"
+    >
+      <button class="delete"></button>
+      <p class="{{msg.tags}}">{{msg}}</p>
+    </div>
+
+    {% endfor %} {% endif %} {% block content %} {% endblock %}
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        (document.querySelectorAll(".notification .delete") || []).forEach(
+          ($delete) => {
+            const $notification = $delete.parentNode;
+
+            $delete.addEventListener("click", () => {
+              $notification.parentNode.removeChild($notification);
+            });
+          }
+        );
+      });
+    </script>
+  </body>
 </html>

@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -108,6 +109,9 @@ USE_I18N = True
 USE_TZ = True
 
 LOGIN_URL = 'user:login'
+
+# MEDIA_URL = 'media/'
+# MEDIA_ROOT = BASE_DIR / 'media/images/'
 
 
 # Static files (CSS, JavaScript, Images)
