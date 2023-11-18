@@ -10,8 +10,6 @@ urlpatterns = [
     path('users/', include('user.urls')),
     path('books/', include('book.urls')),
     path('admin/', admin.site.urls),
-    
-    
 ]
 
 if settings.DEBUG:
