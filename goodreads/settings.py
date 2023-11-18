@@ -73,7 +73,6 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '5432',
         'USER': 'postgres',
-
     }
 }
 
@@ -107,6 +106,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+LOGIN_URL = 'user:login'
 
 
 # Static files (CSS, JavaScript, Images)

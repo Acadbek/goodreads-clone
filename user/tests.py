@@ -5,9 +5,12 @@ from django.urls import reverse
 
 
 class RegistrationTestCase(TestCase):
+    def setUp(self):
+        self.register_url = reverse('user:register')
+
     def test_user_account_is_created(self):
         self.client.post(
-            reverse('user:register'),
+            self.register_url,
             data={
                 "username": 'Anna',
                 'first_name': 'Annaliza',
@@ -27,22 +30,22 @@ class RegistrationTestCase(TestCase):
         self.assertTrue(user.check_password('liza'))
 
     def test_required_fields(self):
-        response = self.client.post(
-            reverse('user:register'),
-            data={
-                'username': 'assad',
-                'password': 'assad'
-            }
-        )
+        response = self.client.post(self.register_url, data={
+            'username': '',
+            'password': ''
+        })
 
-        user_count = User.objects.count()
+        self.assertEqual(User.objects.count(), 0)
 
-        self.assertEqual(user_count, 0)
+        expected_errors = {
+            'username': ['This field is required.'],
+            'password': ['This field is required.'],
+            # Add more fields as needed (first_name, last_name, email, etc.)
+        }
 
-        self.assertFormError(response, 'form', 'username',
-                             'This field is required.')
-        self.assertFormError(response, 'form', 'password',
-                             'This field is required.')
+        for field, errors in expected_errors.items():
+            with self.subTest(field=field):
+                self.assertFormError(response, 'form', field, errors)
 
     def test_unique_username(self):
         # 1. create a user
@@ -52,10 +55,10 @@ class RegistrationTestCase(TestCase):
 
         # 2. try to create another user with the same username
         response = self.client.post(
-            reverse('user:register'),
+            self.register_url,
             data={
-                "username": 'Anna',
-                'first_name': 'Annaliza',
+                "username": 'liza',
+                'first_name': 'Monaliza',
                 'last_name': 'Jakonda',
                 'email': 'liza@gmail.com',
                 'password': 'liza'
@@ -72,12 +75,13 @@ class RegistrationTestCase(TestCase):
 
 
 class LoginTestCase(TestCase):
-    def test_successful_login(self):
-        db_user = User.objects.create(
+    def setUp(self):
+        self.db_user = User.objects.create(
             username='assad', first_name='Asadbek')
-        db_user.set_password('assad')
-        db_user.save()
+        self.db_user.set_password('assad')
+        self.db_user.save()
 
+    def test_successful_login(self):
         self.client.post(
             reverse('user:login'),
             data={
@@ -89,3 +93,40 @@ class LoginTestCase(TestCase):
         user = get_user(self.client)
 
         self.assertTrue(user.is_authenticated)
+
+    def test_logout(self):
+        self.client.login(username='assad', password='assad')
+
+        self.client.get(reverse('user:logout'))
+
+        user = get_user(self.client)
+
+        self.assertFalse(user.is_authenticated)
+
+
+class ProfileTestCase(TestCase):
+    def test_login_required(self):
+        response = self.client.get(reverse('user:profile'))
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(
+            'user:login')+'?next=/users/profile/')
+
+    def test_profile_details(self):
+        user = User.objects.create_user(
+            username='liza',
+            first_name='Monaliza',
+            last_name='Djakonda',
+            email='mona@gmail.com',
+        )
+        user.set_password('liza')
+        user.save()
+
+        self.client.login(username='liza', password='liza')
+        response = self.client.get(reverse('user:profile'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, user.username)
+        self.assertContains(response, user.first_name)
+        self.assertContains(response, user.last_name)
+        self.assertContains(response, user.email)

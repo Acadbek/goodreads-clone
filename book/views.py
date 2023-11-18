@@ -14,3 +14,5 @@ class BookDetailView(View):
     def get(self, request, id):
         book = Book.objects.get(id=id)
         return render(request, 'book/detail.html', {'book': book})
+
+
