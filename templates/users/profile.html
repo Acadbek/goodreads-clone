@@ -3,8 +3,11 @@
 {% block title %} Profile Page {% endblock %}
 
 {% block content %}
-    <h1>Profile Page</h1>
-    <p>Username: {{user.username}}</p>
+    <h1 class="mb-4">Profile Page</h1>
+
+    <a class="underline text-blue-400" href="{% url 'user:profile_edit' %}">Edit Profile</a>
+
+    <p class="mt-4">Username: {{user.username}}</p>
     <p>First name: {{user.first_name}}</p>
     <p>Last name: {{user.last_name}}</p>
     <p>Email: {{user.email}}</p>

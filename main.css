@@ -1,0 +1,15 @@
+input {
+  border: solid 1px gray;
+  padding: 4px;
+  outline: none;
+}
+
+button {
+    border: solid 2px dodgerblue;
+    padding: 2px 4px;
+}
+
+
+.success{
+  /* background-color: green; */
+}

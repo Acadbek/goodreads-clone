@@ -130,3 +130,15 @@ class ProfileTestCase(TestCase):
         self.assertContains(response, user.first_name)
         self.assertContains(response, user.last_name)
         self.assertContains(response, user.email)
+
+
+class AdminPageTestCase(TestCase):
+    def test_admin_page(self):
+        response = self.client.post('/admin/')
+        self.assertEqual(response.status_code, 302)
+
+
+class ProfileUpdateTestCase(TestCase):
+    def test_profile_update_page(self):
+        response = self.client.post(reverse('user:profile_update'))
+        self.assertEqual(response.status_code, 302)
