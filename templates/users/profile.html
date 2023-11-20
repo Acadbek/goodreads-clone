@@ -5,7 +5,7 @@
 {% block content %}
     <h1 class="mb-4">Profile Page</h1>
 
-    <a class="underline text-blue-400" href="{% url 'user:profile_edit' %}">Edit Profile</a>
+    <a class="underline text-blue-400" href="{% url 'user:profile-edit' %}">Edit Profile</a>
 
     <p class="mt-4">Username: {{user.username}}</p>
     <p>First name: {{user.first_name}}</p>

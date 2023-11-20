@@ -48,10 +48,28 @@ class LogoutView(View):
         return redirect('landingPage')
 
 
-class ProfileUpdateView(LoginRequiredMixin, View):
+# class ProfileUpdateView(LoginRequiredMixin, View):
+#     def get(self, request):
+#         update_form = UserUpdateForm(instance=request.user)
+#         return render(request, 'users/profile_edit.html', {'form': update_form})
+
+#     def post(self, request):
+#         update_form = UserUpdateForm(instance=request.user, data=request.POST)
+
+#         if update_form.is_valid():
+#             update_form.save()
+#             messages.success(
+#                 request, 'You have successfully updated your profile.')
+
+#             return redirect('user:profile')
+#         else:
+#             return render(request, 'users/profile_edit.html', {"form": update_form})
+
+
+class UpdateProfileView(LoginRequiredMixin, View):
     def get(self, request):
         update_form = UserUpdateForm(instance=request.user)
-        return render(request, 'users/profile_edit.html', {'form': update_form})
+        return render(request, 'users/profile_edit.html', {"form": update_form})
 
     def post(self, request):
         update_form = UserUpdateForm(instance=request.user, data=request.POST)
@@ -60,7 +78,7 @@ class ProfileUpdateView(LoginRequiredMixin, View):
             update_form.save()
             messages.success(
                 request, 'You have successfully updated your profile.')
-
             return redirect('user:profile')
+
         else:
             return render(request, 'users/profile_edit.html', {"form": update_form})

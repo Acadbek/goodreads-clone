@@ -139,6 +139,30 @@ class AdminPageTestCase(TestCase):
 
 
 class ProfileUpdateTestCase(TestCase):
-    def test_profile_update_page(self):
-        response = self.client.post(reverse('user:profile_update'))
-        self.assertEqual(response.status_code, 302)
+    def test_profile_update_form_submission(self):
+        user = User.objects.create(
+            username='zemeister',
+            first_name='Zemeister',
+            last_name='Zem',
+            email='zemeister@xmail.zzz'
+        )
+
+        user.set_password('zxz')
+        user.save()
+        self.client.login(username='zemeister', password='zxz')  
+
+        response = self.client.post(
+            reverse('user:profile-edit'),
+            data={
+                'username': 'azzzad',
+                'first_name': 'Zemeister',
+                'last_name': 'xemex',
+                'email': 'xxx@gmail.xxx'
+            }
+        )
+
+        user = User.objects.get(pk=user.pk)
+
+        self.assertEqual(user.username, 'azzzad')
+        self.assertEqual(user.first_name, 'Zemeister')
+        self.assertEqual(response.url, reverse('user:profile'))
