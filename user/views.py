@@ -72,7 +72,11 @@ class UpdateProfileView(LoginRequiredMixin, View):
         return render(request, 'users/profile_edit.html', {"form": update_form})
 
     def post(self, request):
-        update_form = UserUpdateForm(instance=request.user, data=request.POST)
+        update_form = UserUpdateForm(
+            instance=request.user,
+            data=request.POST,
+            files=request.FILES
+        )
 
         if update_form.is_valid():
             update_form.save()

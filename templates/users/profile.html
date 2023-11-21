@@ -4,9 +4,8 @@
 
 {% block content %}
     <h1 class="mb-4">Profile Page</h1>
-
-    <a class="underline text-blue-400" href="{% url 'user:profile-edit' %}">Edit Profile</a>
-
+    <img class="w-48 rounded-full h-48 object-cover" src="{{user.profile_picture.url}}" alt="Profile Picture">
+    <a class="underline my-2 text-blue-400" href="{% url 'user:profile-edit' %}">Edit Profile</a>
     <p class="mt-4">Username: {{user.username}}</p>
     <p>First name: {{user.first_name}}</p>
     <p>Last name: {{user.last_name}}</p>

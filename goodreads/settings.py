@@ -112,8 +112,10 @@ LOGIN_URL = 'user:login'
 
 AUTH_USER_MODEL = 'user.CustomUser'
 
-# MEDIA_URL = 'media/'
-# MEDIA_ROOT = BASE_DIR / 'media/images/'
+
+
+MEDIA_ROOT = 'media-files'
+MEDIA_URL = '/media/'
 
 
 # Static files (CSS, JavaScript, Images)
