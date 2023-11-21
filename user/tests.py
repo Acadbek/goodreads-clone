@@ -1,5 +1,5 @@
 from django.test import TestCase
-from django.contrib.auth.models import User
+from user.models import CustomUser
 from django.contrib.auth import get_user
 from django.urls import reverse
 
@@ -20,7 +20,7 @@ class RegistrationTestCase(TestCase):
             }
         )
 
-        user = User.objects.get(username='Anna')
+        user = CustomUser.objects.get(username='Anna')
 
         self.assertEqual(user.username, 'Anna')
         self.assertEqual(user.first_name, 'Annaliza')
@@ -35,7 +35,7 @@ class RegistrationTestCase(TestCase):
             'password': ''
         })
 
-        self.assertEqual(User.objects.count(), 0)
+        self.assertEqual(CustomUser.objects.count(), 0)
 
         expected_errors = {
             'username': ['This field is required.'],
@@ -49,7 +49,7 @@ class RegistrationTestCase(TestCase):
 
     def test_unique_username(self):
         # 1. create a user
-        user = User.objects.create_user(username='liza', first_name='Monaliza')
+        user = CustomUser.objects.create_user(username='liza', first_name='Monaliza')
         user.set_password('liza')
         user.save()
 
@@ -66,7 +66,7 @@ class RegistrationTestCase(TestCase):
         )
 
         # 3. check that the second user was not created
-        user_count = User.objects.count()
+        user_count = CustomUser.objects.count()
         self.assertEqual(user_count, 1)
 
         # 4. check that the form contains the error message
@@ -76,7 +76,7 @@ class RegistrationTestCase(TestCase):
 
 class LoginTestCase(TestCase):
     def setUp(self):
-        self.db_user = User.objects.create(
+        self.db_user = CustomUser.objects.create(
             username='assad', first_name='Asadbek')
         self.db_user.set_password('assad')
         self.db_user.save()
@@ -113,7 +113,7 @@ class ProfileTestCase(TestCase):
             'user:login')+'?next=/users/profile/')
 
     def test_profile_details(self):
-        user = User.objects.create_user(
+        user = CustomUser.objects.create_user(
             username='liza',
             first_name='Monaliza',
             last_name='Djakonda',
@@ -140,7 +140,7 @@ class AdminPageTestCase(TestCase):
 
 class ProfileUpdateTestCase(TestCase):
     def test_profile_update_form_submission(self):
-        user = User.objects.create(
+        user = CustomUser.objects.create(
             username='zemeister',
             first_name='Zemeister',
             last_name='Zem',
@@ -161,7 +161,7 @@ class ProfileUpdateTestCase(TestCase):
             }
         )
 
-        user = User.objects.get(pk=user.pk)
+        user = CustomUser.objects.get(pk=user.pk) # OR user.refresh_from_db()
 
         self.assertEqual(user.username, 'azzzad')
         self.assertEqual(user.first_name, 'Zemeister')
