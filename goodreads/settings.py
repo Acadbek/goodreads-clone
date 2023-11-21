@@ -121,7 +121,8 @@ MEDIA_URL = '/media/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'static/' # agar static folderni app'larni ichida qidirish kerak bo'lsa 
+STATIC_FILES_DIRS = [BASE_DIR / 'static'] # agar static folder root'da bo'lsa
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
