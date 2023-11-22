@@ -6,7 +6,7 @@ class Book(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     isbn = models.CharField(max_length=13)
-    img = models.ImageField(upload_to="media/images/")
+    img = models.ImageField(default='default-cover.jpg')
 
     def __str__(self) -> str:
         return self.title

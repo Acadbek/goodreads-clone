@@ -1,4 +1,4 @@
-<!-- {% load static %} -->
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,8 +11,13 @@
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
     />
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- <link rel="stylesheet" href="/main.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,400;0,500;0,600;1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <nav

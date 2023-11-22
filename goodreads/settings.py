@@ -122,7 +122,9 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/' # agar static folderni app'larni ichida qidirish kerak bo'lsa 
-STATIC_FILES_DIRS = [BASE_DIR / 'static'] # agar static folder root'da bo'lsa
+STATICFILES_DIRS = [BASE_DIR / 'static'] # agar static folder root'da bo'lsa
+
+STATIC_ROOT = 'static-files'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

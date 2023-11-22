@@ -1,9 +1,23 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block title %} {{book.title}} - Details Page {% endblock %}
 
 {% block content %}
-    <h1>Book detail page</h1>
-    <h3>{{book.title}}</h3>
-    <p>{{book.description}}</p>
+<div class="container">
+    <div class="grid grid-cols-12 gap-4">
+        <div class="col-span-3 py-4">
+            <div class="sticky top-[57px] ">
+                <div class="flex flex-col items-center">
+                    <img class="w-[200px]" src="{{book.img.url}}" alt="">
+                    <button class="w-full text-white font-bold py-3 bg-[#3F8363] mt-4 rounded-full hover:bg-[#409970] ">Want to read</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-span-9">
+            <h1 class="book-cover-title text-[3.7rem] leading-[70px]">{{book.title}}</h1>
+            <p>{{book.description}}</p>
+            <p class="mt-4">ISBN <span>{{book.isbn}}</span></p>
+        </div>
+    </div>
+</div>
 {% endblock %}
