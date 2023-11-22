@@ -1,4 +1,6 @@
+
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %} Edit Profile {% endblock %}
 
@@ -6,11 +8,15 @@
 
 <h1>Edit Profile</h1>
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form.as_p}}
-
-    <button type="submit">Change updates</button>
-</form>
+<div class="row">
+    <div class="col-4">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form | crispy }}
+            <button class="btn btn-info" type="submit">Change updates</button>
+            <span class="ml-4">No account? Then, <a class="text-blue-400" href="{% url 'user:register' %}">Get Registered</a></span>
+        </form>
+    </div>
+</div>
 
 {% endblock %}

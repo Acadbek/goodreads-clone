@@ -27,9 +27,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    "crispy_forms",
+    "crispy_bootstrap5",
+
     'book',
     'user'
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -114,8 +120,8 @@ AUTH_USER_MODEL = 'user.CustomUser'
 
 
 
-MEDIA_ROOT = 'media-files'
-MEDIA_URL = '/media/'
+MEDIA_URL = "/media/"
+MEDIA_ROOT = "media-files"
 
 
 # Static files (CSS, JavaScript, Images)

@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %} Profile Page {% endblock %}
 
 {% block content %}
-    <h1>Register</h1>
-    <form name="form" method="post">
-      {% csrf_token %} {{form.as_p}}
-      <button type="submit">Submit</button>
-    </form>
+<div class="container">
+  <div class="row">
+    <div class="col-5">
+      <form name="form" method="post">
+        {% csrf_token %} {{form | crispy}}
+        <button class="btn btn-info" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

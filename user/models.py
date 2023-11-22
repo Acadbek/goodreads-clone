@@ -3,4 +3,4 @@ from django.contrib.auth.models import AbstractUser
 
 
 class CustomUser(AbstractUser):
-    profile_picture = models.ImageField(default='default.jpg')
+    profile_picture = models.ImageField(default="default_profile_pic.jpg")
