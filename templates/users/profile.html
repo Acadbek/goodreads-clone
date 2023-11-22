@@ -1,13 +1,51 @@
-{% extends 'base.html' %}
-
-{% block title %} Profile Page {% endblock %}
+{% extends 'base.html' %} 
+{% block title %} Profile Page {% endblock %} 
 
 {% block content %}
-    <h1 class="mb-4">Profile Page</h1>
-    <img class="w-48 rounded-full h-48 object-cover" src="{{user.profile_picture.url}}" alt="Profile Picture">
-    <a class="underline my-2 text-blue-400" href="{% url 'user:profile-edit' %}">Edit Profile</a>
-    <p class="mt-4">Username: {{user.username}}</p>
-    <p>First name: {{user.first_name}}</p>
-    <p>Last name: {{user.last_name}}</p>
-    <p>Email: {{user.email}}</p>
+<div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+  <div class="card p-4">
+    <div
+      class="image d-flex flex-column justify-content-center align-items-center"
+    >
+      <button class="btn btn-secondary">
+        <a href="{% url 'user:profile-edit' %}">
+            <img class="!w-48" src="{{user.profile_picture.url}}" />
+        </a>
+      </button>
+      <span class="name mt-3">{{user.first_name}}</span>
+      <span class="idd">@{{user.username}}</span>
+      <div
+        class="d-flex flex-row justify-content-center align-items-center gap-2"
+      >
+        <span class="idd1">{{user.pk}}</span>
+        <span><i class="fa fa-copy"></i></span>
+      </div>
+      <div class="d-flex mt-2">
+        <button class="btn">
+            <a href="{% url 'user:profile-edit' %}">Edit Profile</a>
+        </button>
+      </div>
+      <div class="d-flex mt-2">
+        <p class="font-bold">{{user.job}}</p>
+      </div>
+      <div class="d-flex mt-2">
+        <p>Location: {{user.location}}</p>
+      </div>
+      <div class="text mt-3">
+        <span>
+            {{user.bio}}
+        </span>
+      </div>
+      <div
+        class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"
+      >
+      <a href="{{user.website}}">Website</a>
+      <a href="{{user.github}}">Github</a>
+      </div>
+      <div class="px-2 rounded mt-4 date">
+        <span class="join">Joined {{user.date_joined | date:'d M, Y'}}</span>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

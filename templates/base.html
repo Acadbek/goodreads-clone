@@ -80,7 +80,7 @@
 
     {% if messages %} {% for msg in messages %}
     <div
-      class="notification is-warning absolute right-2 flex justify-between w-[300px]"
+      class="notification !z-[5] is-warning absolute right-2 flex justify-between w-[300px]"
     >
       <button class="delete"></button>
       <p class="{{msg.tags}}">{{msg}}</p>
